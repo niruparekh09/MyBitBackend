@@ -17,6 +17,8 @@ public class Donation {
     private String id;
     @NotBlank(message = "Donor Name Can't Be Empty")
     private String donorName;
+    @NotBlank(message = "Donor Email Can't Be Blank")
+    private String donorEmail;
     @NotBlank(message = "Donation Can't Be Empty")
     private DonationType type;
     @NotBlank(message = "Qty can't be Online")

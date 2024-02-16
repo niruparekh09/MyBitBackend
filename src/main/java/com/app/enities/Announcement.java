@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Document
@@ -15,8 +16,10 @@ import javax.validation.constraints.NotNull;
 public class Announcement {
     @Id
     private String id;
-    @NotNull(message = "Announcement Can Not Be Null")
-    private String announcement;
-    @NotNull(message = "Date Cannot Be Null")
-    private String date;
+    @NotBlank(message = "Your NGO name can't be empty")
+        private String ngoName;
+        @NotBlank(message = "Requirement needed")
+        private String req;
+        @NotBlank(message = "Date Cannot be blank")
+        private String date;
 }

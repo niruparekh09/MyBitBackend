@@ -1,28 +1,52 @@
 package com.app.controller;
 
+import com.app.dto.AnnounceReqList;
+import com.app.dto.AnnouncementResponse;
+import com.app.dto.UserList;
+import com.app.service.AnnounceRequestService;
+import com.app.service.AnnouncementService;
+import com.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AnnounceRequestService announceReqService;
+
+    @Autowired
+    AnnouncementService announcementService;
+
     @GetMapping("/users")
-    ResponseEntity<?> getAllUsers(){
-        return null;
+    ResponseEntity<?> getAllUsers() {
+        List<UserList> list = userService.getUserList();
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
     @GetMapping("/users/{city}")
-    ResponseEntity<?> getUsersByCity(){
-        return null;
+    ResponseEntity<?> getUsersByCity(@PathVariable String city) {
+        List<UserList> list = userService.getUserByCity(city);
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
-    @GetMapping("/announceReq")
-    ResponseEntity<?> approveRequest(@RequestBody String id){
-        //fetch AnnounceReq from db and then delete it from it and transfer to Announcement collection
-        return null;
+    @GetMapping("/announceReq/list")
+    ResponseEntity<?> getAllAnnouncementRequest() {
+        List<AnnounceReqList> list = announceReqService.getAllAnnouncementRequest();
+        return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("/addannouncement")
+    ResponseEntity<?> approveAnnouncementReq(String id) {
+        AnnouncementResponse addedAnnouncement = announcementService.addAnnouncement(id);
+        return ResponseEntity.ok(addedAnnouncement);
     }
 }

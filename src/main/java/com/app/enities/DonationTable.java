@@ -19,4 +19,9 @@ public class DonationTable {
     @DBRef
     private String userId;
     private List<String> donationId;
+
+    public DonationTable(String userId, List<String> donationId) {
+        this.userId = userId;
+        this.donationId = donationId;
+    }
 }
