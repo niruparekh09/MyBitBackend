@@ -32,7 +32,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
-        //URL based authorization rules
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(authEntry).
                 and().
@@ -41,18 +40,15 @@ public class SecurityConfig {
                         "/announcement/list", "/donation/list", "/donation/{email}",
                         "/ngo/{name}/info",
                         "/v*/api-doc*/**", "/swagger-ui/**").permitAll()
-                // only required for JS clnts (react / angular) : for the pre flight requests
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers("/donation/makeDonation").hasRole("DONOR")
                 .antMatchers("/ngo/request").hasRole("NGO")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                //to tell spring sec : not to use HttpSession to store user's auth details
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and()
-                //inserting jwt filter before sec filter
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

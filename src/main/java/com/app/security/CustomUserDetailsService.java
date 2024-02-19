@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
-    // dep : dao layer
     @Autowired
     private UserRepository userRepo;
 
@@ -22,5 +21,4 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Email not found!!!!"));
         return new CustomUserDetails(user);
     }
-
 }

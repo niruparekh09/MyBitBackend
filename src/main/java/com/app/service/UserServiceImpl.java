@@ -26,11 +26,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserInfoRepository userInfoRepo;
 
-    @Autowired
-    ModelMapper mapper;
-
-    @Autowired
-    private PasswordEncoder encoder;
+        @Autowired
+        ModelMapper mapper;
+    
+        @Autowired
+        private PasswordEncoder encoder;
 
     @Override
     public DonorResponse addUser(DonorInsertRequest newDonor) {
@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService {
         List<UserList> userListResp = userList.stream()
                 .map(u -> mapper.map(u, UserList.class))
                 .collect(Collectors.toList());
-
         return userListResp;
     }
 

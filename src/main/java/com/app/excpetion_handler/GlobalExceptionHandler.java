@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@RestControllerAdvice // to tell SC following is centralized custom exc handler , 
+@RestControllerAdvice // to tell SC following is centralized custom exc handler ,
 //to provide COMMON ADVICE to all rest controllers regarding exc handling
 public class GlobalExceptionHandler {
     //add exc handling method : for validation failures
